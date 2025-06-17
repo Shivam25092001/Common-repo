@@ -16,5 +16,6 @@ const Alpha = NativeModules.Alpha  ? NativeModules.Alpha  : new Proxy(
     );
 
 export function multiply(a: number, b: number): Promise<number> {
+  console.log('multiply called with:', a, b);
   return Alpha.multiply(a, b);
 }
