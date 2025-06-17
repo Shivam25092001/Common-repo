@@ -16,5 +16,6 @@ const Beta = NativeModules.Beta  ? NativeModules.Beta  : new Proxy(
     );
 
 export function multiply(a: number, b: number): Promise<number> {
+  console.log("-- beta --");
   return Beta.multiply(a, b);
 }
