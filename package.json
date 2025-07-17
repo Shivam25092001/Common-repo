@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "release-it",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major",
+    "release:patch": "release-it patch",
+    "release:dry": "release-it --dry-run"
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +18,29 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "lerna": "^8.2.2"
+    "lerna": "^8.2.2",
+    "release-it": "^17.0.0"
   },
-  "packageManager": "yarn@3.6.4+sha512.e70835d4d6d62c07be76b3c1529cb640c7443f0fe434ef4b6478a5a399218cbaf1511b396b3c56eb03bc86424cff2320f6167ad2fde273aa0df6e60b7754029f"
+  "packageManager": "yarn@3.6.4+sha512.e70835d4d6d62c07be76b3c1529cb640c7443f0fe434ef4b6478a5a399218cbaf1511b396b3c56eb03bc86424cff2320f6167ad2fde273aa0df6e60b7754029f",
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "tagName": "v${version}",
+      "push": true,
+      "commit": true,
+      "tag": true
+    },
+    "github": {
+      "release": true,
+      "releaseName": "Release v${version}"
+    },
+    "npm": {
+      "publish": false
+    },
+    "hooks": {
+      "before:init": ["git status --porcelain | grep -q . && echo 'Working directory is not clean' && exit 1 || echo 'Working directory is clean'"],
+      "after:bump": "echo 'Version bumped to ${version}'",
+      "after:release": "echo 'Released ${name} v${version} to ${repo.repository}'"
+    }
+  }
 }
